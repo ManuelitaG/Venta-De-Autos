@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4bf0ea342280490a8f40bbdbd895587b" Name="Diagram1">
+        <EntityTypeShape EntityType="db20311Model.Cargo" Width="1.5" PointX="0.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.CitaTaller" Width="1.5" PointX="7.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Ciudad" Width="1.5" PointX="1.5" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Cliente" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Concesionario" Width="1.5" PointX="1.5" PointY="36.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Departamento" Width="1.5" PointX="1.5" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.DetalleDevolucion" Width="1.5" PointX="10.5" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.DetalleFacturaVenta" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.DetallePedidoCliente" Width="1.5" PointX="7.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.DevolucionVenta" Width="1.5" PointX="15" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Empleado" Width="1.5" PointX="0.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.EmpleadoCargo" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.FacturaVenta" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.FotosEmpleados" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Garantia" Width="1.5" PointX="10.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.ImagenesVehiculo" Width="1.5" PointX="7.5" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Marca" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Modelo" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.NotaCredito" Width="1.5" PointX="17.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Pais" Width="1.5" PointX="1.5" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.PedidoCliente" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Perfil" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.ReclamoGarantia" Width="1.5" PointX="12.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.ServicioTaller" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Sucursal" Width="1.5" PointX="0.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Unidad" Width="1.5" PointX="7.5" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Usuario" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Usuario_Perfil" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="db20311Model.Vehiculo" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="db20311Model.FK__EmpleadoC__Codig__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__CitaTalle__Codig__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__CitaTalle__Docum__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__CitaTalle__IdRec__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__ServicioT__IdCit__2180FB33" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Ciudad__CodigoDe__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Sucursal__Codigo__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Devolucio__Docum__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__FacturaVe__Docum__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__PedidoCli__Docum__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Sucursal__NitCon__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Departame__Codig__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetalleDe__Codig__2B0A656D" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetalleDe__Codig__2BFE89A6" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetalleFa__Codig__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetalleFa__Numer__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetallePe__Codig__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__DetallePe__IdPed__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Devolucio__Codig__2739D489" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Devolucio__IdRec__282DF8C2" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Devolucio__Numer__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__NotaCredi__Codig__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__EmpleadoC__Docum__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__FotosEmpl__IdEmp__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Usuario__Documen__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__EmpleadoC__Codig__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__FacturaVe__Codig__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__ServicioT__Codig__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Garantia__Numero__1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Garantia__Codigo__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__ReclamoGa__IdGar__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__ImagenesV__Codig__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Modelo__IdMarca__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Vehiculo__IdMode__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Usuario_P__IdPer__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Unidad__CodigoVe__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="db20311Model.FK__Usuario_P__IdUsu__656C112C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
