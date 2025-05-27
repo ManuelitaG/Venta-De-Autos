@@ -9,6 +9,7 @@
 
 namespace VentaAutos.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -28,14 +29,21 @@ namespace VentaAutos.Models
         public System.DateTime FechaInicio { get; set; }
         public Nullable<System.DateTime> FechaFin { get; set; }
         public int CodigoSucursal { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Cargo Cargo { get; set; }
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DevolucionVenta> DevolucionVenta { get; set; }
+        [JsonIgnore]
         public virtual Empleado Empleado { get; set; }
+        [JsonIgnore]
         public virtual Sucursal Sucursal { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FacturaVenta> FacturaVenta { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicioTaller> ServicioTaller { get; set; }
     }

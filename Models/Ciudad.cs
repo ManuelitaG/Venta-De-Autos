@@ -9,6 +9,7 @@
 
 namespace VentaAutos.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,8 +25,11 @@ namespace VentaAutos.Models
         public string Nombre { get; set; }
         public bool Activo { get; set; }
         public int CodigoDepartamento { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Departamento Departamento { get; set; }
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sucursal> Sucursal { get; set; }
     }
