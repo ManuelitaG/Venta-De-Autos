@@ -9,7 +9,7 @@ using VentaAutos.Models;
 
 namespace VentaAutos.Controllers
 {
-    [RoutePrefix("Reclamo/Garantia")]
+    [RoutePrefix("api/ReclamoGarantia")]
     public class ReclamoGarantiaController : ApiController
     {
         [HttpGet]
