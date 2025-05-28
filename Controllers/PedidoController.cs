@@ -22,5 +22,13 @@ namespace VentaAutos.Controllers
 
       return pedidos.Insertar();
     }
+
+    [HttpGet]
+    [Route("ConsultarPedidosCliente/{documento}")]
+    public List<object> ConsultarPedidosCliente(string documento)
+    {
+      clsPedido pedido = new clsPedido();
+      return pedido.ConsultarXCliente(documento);
+    }
   }
 }
