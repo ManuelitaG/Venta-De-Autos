@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using VentaAutos.Models;
 
@@ -17,5 +18,32 @@ namespace VentaAutos.Clases
                  .Where(v => v.Estado == "Disponible")
                  .ToList();
     }
+
+    public string Registrar(int idModelo, int año, string tipo, int valor, string estado, string origen, string condicion)
+    {
+      try
+      {
+        var nuevoVehiculo = new Vehiculo
+        {
+          IdModelo = idModelo,
+          Año = año,
+          Tipo = tipo,
+          ValorUnitario = valor,
+          Estado = estado,
+          Origen = origen,
+          Condicion = condicion,
+          FechaIngreso = DateTime.Now
+        };
+
+        dbVenta.Vehiculo.Add(nuevoVehiculo);
+        dbVenta.SaveChanges();
+        return "Vehículo registrado exitosamente.";
+      }
+      catch (Exception ex)
+      {
+        return "Error al registrar el vehículo: " + ex.Message;
+      }
+    }
+
   }
 }
