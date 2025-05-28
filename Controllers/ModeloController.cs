@@ -14,20 +14,20 @@ namespace VentaAutos.Controllers
   {
     [HttpGet]
     [Route("ConsultarTodos")]
-    public List<Marca> ConsultarTodos()
+    public List<Modelo> ConsultarTodos()
     {
-      clsMarca marca = new clsMarca();
-      return marca.ConsultarTodos();
+      clsModelo modelo = new clsModelo();
+      return modelo.ConsultarTodos();
     }
 
     [HttpPost]
     [Route("Insertar")]
-    public string Insertar([FromBody] Marca marca)
+    public string Insertar([FromBody] Modelo modelo)
     {
-      clsMarca marcas = new clsMarca();
-      marcas.marca = marca;
+      clsModelo modelos = new clsModelo();
+      modelos.modelo = modelo;
 
-      return marcas.Insertar();
+      return modelos.Insertar();
     }
   }
 }
