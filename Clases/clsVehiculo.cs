@@ -23,7 +23,7 @@ namespace VentaAutos.Clases
     {
       try
       {
-        vehiculo.FechaIngreso = DateTime.Now; 
+        vehiculo.FechaIngreso = DateTime.Now;
 
         dbVenta.Vehiculo.Add(vehiculo);
         dbVenta.SaveChanges();
@@ -33,6 +33,29 @@ namespace VentaAutos.Clases
       catch (Exception ex)
       {
         return "No se ha podido registrar el vehículo: " + ex.Message;
+      }
+    }
+
+    public string Actualizar(int idVehiculo, Vehiculo nuevosDatos)
+    {
+      try
+      {
+        Vehiculo vehiculo = dbVenta.Vehiculo.FirstOrDefault(v => v.Codigo == idVehiculo);
+        if (vehiculo == null)
+        {
+          return "No se encontró un vehiculo con codigo: " + idVehiculo;
+        }
+
+      
+        vehiculo.Estado = nuevosDatos.Estado;
+        vehiculo.ValorUnitario = nuevosDatos.ValorUnitario;
+
+        dbVenta.SaveChanges();
+        return "Vehiculo actualizado exitosamente";
+      }
+      catch (Exception ex)
+      {
+        return "Error al actualizar el vehiculo: " + ex.Message;
       }
     }
   }
