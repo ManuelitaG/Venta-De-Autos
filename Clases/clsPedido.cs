@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using VentaAutos.Models;
+
+namespace VentaAutos.Clases
+{
+  public class clsPedido
+  {
+    private db20311Entities dbVenta = new db20311Entities();
+
+    public PedidoCliente pedido { get; set; }
+    public List<DetallePedidoCliente> detalles { get; set; } = new List<DetallePedidoCliente>();
+
+    public string Insertar()
+    {
+      try
+      {
+        pedido.FechaPedido = DateTime.Now;
+
+        dbVenta.PedidoCliente.Add(pedido);
+        dbVenta.SaveChanges();
+
+        foreach (var detalle in detalles)
+        {
+          detalle.IdPedido = pedido.Id; 
+          dbVenta.DetallePedidoCliente.Add(detalle);
+        }
+
+        dbVenta.SaveChanges();
+
+        return "Se ha registrado exitosamente el pedido";
+      }
+      catch (Exception ex)
+      {
+        return "No se ha podido registrar el pedido: " + ex.Message;
+      }
+    }
+  }
+}
