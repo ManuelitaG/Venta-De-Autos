@@ -38,5 +38,18 @@ namespace VentaAutos.Clases
         return "No se ha podido registrar el pedido: " + ex.Message;
       }
     }
+
+    public List<object> ConsultarXCliente(string idCliente)
+    {
+      return dbVenta.PedidoCliente
+          .Where(p => p.DocumentoCliente == idCliente)
+          .Select(p => new
+          {
+            p.Id,
+            p.FechaPedido,
+            p.Estado
+          })
+          .ToList<object>();
+    }
   }
 }
