@@ -9,6 +9,7 @@
 
 namespace VentaAutos.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,7 +18,8 @@ namespace VentaAutos.Models
         public int IdImagen { get; set; }
         public int CodigoVehiculo { get; set; }
         public string NombreImagen { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Vehiculo Vehiculo { get; set; }
     }
 }

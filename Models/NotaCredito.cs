@@ -9,6 +9,7 @@
 
 namespace VentaAutos.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -18,7 +19,8 @@ namespace VentaAutos.Models
         public int CodigoDevolucion { get; set; }
         public int Valor { get; set; }
         public System.DateTime FechaValidez { get; set; }
-    
+
+        [JsonIgnore]
         public virtual DevolucionVenta DevolucionVenta { get; set; }
     }
 }

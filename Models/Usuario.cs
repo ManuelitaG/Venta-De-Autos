@@ -9,6 +9,7 @@
 
 namespace VentaAutos.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -25,8 +26,11 @@ namespace VentaAutos.Models
         public string Username { get; set; }
         public string Clave { get; set; }
         public string Salt { get; set; }
-    
+
+        [JsonIgnore]
         public virtual Empleado Empleado { get; set; }
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuario_Perfil> Usuario_Perfil { get; set; }
     }
