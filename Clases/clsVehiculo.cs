@@ -19,31 +19,21 @@ namespace VentaAutos.Clases
                  .ToList();
     }
 
-    public string Registrar(int idModelo, int año, string tipo, int valor, string estado, string origen, string condicion)
+    public string Registrar()
     {
       try
       {
-        var nuevoVehiculo = new Vehiculo
-        {
-          IdModelo = idModelo,
-          Año = año,
-          Tipo = tipo,
-          ValorUnitario = valor,
-          Estado = estado,
-          Origen = origen,
-          Condicion = condicion,
-          FechaIngreso = DateTime.Now
-        };
+        vehiculo.FechaIngreso = DateTime.Now; 
 
-        dbVenta.Vehiculo.Add(nuevoVehiculo);
+        dbVenta.Vehiculo.Add(vehiculo);
         dbVenta.SaveChanges();
-        return "Vehículo registrado exitosamente.";
+
+        return "Se ha registrado exitosamente el vehículo";
       }
       catch (Exception ex)
       {
-        return "Error al registrar el vehículo: " + ex.Message;
+        return "No se ha podido registrar el vehículo: " + ex.Message;
       }
     }
-
   }
 }

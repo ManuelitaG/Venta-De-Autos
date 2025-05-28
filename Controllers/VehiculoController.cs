@@ -19,5 +19,16 @@ namespace VentaAutos.Controllers
       clsVehiculo vehiculos = new clsVehiculo();
       return vehiculos.ListarDisponibles();
     }
+
+    [HttpPost]
+    [Route("Registrar")]
+    public string Registrar([FromBody] Vehiculo vehiculo)
+    {
+      clsVehiculo vehiculos = new clsVehiculo();
+      vehiculos.vehiculo = vehiculo;
+
+      return vehiculos.Registrar(); 
+    }
+
   }
 }
