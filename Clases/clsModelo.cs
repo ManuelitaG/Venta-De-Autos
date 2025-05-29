@@ -6,27 +6,27 @@ using VentaAutos.Models;
 
 namespace VentaAutos.Clases
 {
-  public class clsCitaTaller
+  public class clsModelo
   {
     private db20311Entities dbVenta = new db20311Entities();
-    public CitaTaller citaTaller { get; set; }
+    public Modelo modelo { get; set; }
 
-    public List<CitaTaller> ConsultarTodos()
+    public List<Modelo> ConsultarTodos()
     {
-      return dbVenta.CitaTaller.ToList();
+      return dbVenta.Modelo.ToList();
     }
 
     public String Insertar()
     {
       try
       {
-        dbVenta.CitaTaller.Add(citaTaller);
+        dbVenta.Modelo.Add(modelo);
         dbVenta.SaveChanges();
-        return "Se ha ingresado con éxito la cita del taller";
+        return "Se ha registrado exitosamente el modelo";
       }
       catch (Exception ex)
       {
-        return "No se ha podido ingresar la cita del taller" + ex.Message;
+        return "No se ha podido registrar el modelo" + ex.Message;
       }
     }
   }
