@@ -56,6 +56,25 @@ namespace VentaAutos.Clases
 
       return factura;
     }
-  }
 
+    public List<object> ObtenerHistorialCompras(string documentoCliente)
+    {
+      var historial = (from f in dbVenta.FacturaVenta
+                       join df in dbVenta.DetalleFacturaVenta on f.Numero equals df.NumeroFactura
+                       join v in dbVenta.Vehiculo on df.CodigoVehiculo equals v.Codigo
+                       where f.DocumentoCliente == documentoCliente
+                       orderby f.Fecha descending
+                       select new
+                       {
+                         NumeroFactura = f.Numero,
+                         FechaCompra = f.Fecha,
+                         CodigoVehiculo = v.Codigo,
+                         Cantidad = df.Cantidad,
+                         ValorUnitario = df.ValorUnitario,
+                         Total = df.Cantidad * df.ValorUnitario
+                       }).ToList<object>();
+
+      return historial;
+    }
+  }
 }
