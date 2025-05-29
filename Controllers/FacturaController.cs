@@ -20,5 +20,13 @@ namespace VentaAutos.Controllers
 
       return facturas.GenerarFacturaDesdePedido(numeroPedido, documentoEmpleado);
     }
+
+    [HttpGet]
+    [Route("ConsultarComprasCliente/{documento}")]
+    public List<object> ConsultarComprasCliente(string documento)
+    {
+      clsFactura facturas = new clsFactura();
+      return facturas.ObtenerHistorialCompras(documento);
+    }
   }
 }
