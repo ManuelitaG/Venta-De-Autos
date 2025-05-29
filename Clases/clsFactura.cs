@@ -12,35 +12,57 @@ namespace VentaAutos.Clases
 
     public FacturaVenta GenerarFacturaDesdePedido(int numeroPedido, string documentoEmpleado)
     {
-      var pedido = dbVenta.PedidoCliente.FirstOrDefault(p => p.Id == numeroPedido && p.Estado == "Aprobado");
-
-      if (pedido == null)
+      try
       {
-        throw new Exception("El pedido no existe o no está aprobado.");
-      }
+        var pedido = dbVenta.PedidoCliente
+                    .Include("DetallePedidoCliente") 
+                    .FirstOrDefault(p => p.Id == numeroPedido && p.Estado == "Aprobado");
 
-      var empleadoCargo = dbVenta.EmpleadoCargo
-          .FirstOrDefault(e => e.DocumentoEmpleado == documentoEmpleado && e.FechaFin == null);
-
-      if (empleadoCargo == null)
-      {
-        throw new Exception("No se encontró el empleado activo.");
-      }
-
-      FacturaVenta factura = new FacturaVenta
-      {
-        DocumentoCliente = pedido.DocumentoCliente,
-        CodigoEmpleadoCargo = empleadoCargo.Codigo,
-        Fecha = DateTime.Now,
-        DetalleFacturaVenta = new List<DetalleFacturaVenta>()
-      };
-
-      foreach (var detallePedido in pedido.DetallePedidoCliente)
-      {
-        var vehiculo = dbVenta.Vehiculo.Find(detallePedido.CodigoVehiculo);
-
-        if (vehiculo != null)
+        if (pedido == null)
         {
+          throw new Exception("El pedido no existe o no está aprobado.");
+        }
+
+        if (pedido.DetallePedidoCliente == null || !pedido.DetallePedidoCliente.Any())
+        {
+          throw new Exception("El pedido no tiene detalles asociados.");
+        }
+
+        var empleadoCargo = dbVenta.EmpleadoCargo
+            .FirstOrDefault(e => e.DocumentoEmpleado == documentoEmpleado);
+
+        if (empleadoCargo == null)
+        {
+          throw new Exception("No se encontró el empleado activo.");
+        }
+
+        int nuevoNumero = 1; 
+
+        var facturaMaxNumero = dbVenta.FacturaVenta.Max(f => (int?)f.Numero);
+
+        if (facturaMaxNumero.HasValue)
+        {
+          nuevoNumero = facturaMaxNumero.Value + 1;
+        }
+
+        FacturaVenta factura = new FacturaVenta
+        {
+          Numero = nuevoNumero,
+          DocumentoCliente = pedido.DocumentoCliente,
+          CodigoEmpleadoCargo = empleadoCargo.Codigo,
+          Fecha = DateTime.Now,
+          DetalleFacturaVenta = new List<DetalleFacturaVenta>()
+        };
+
+        foreach (var detallePedido in pedido.DetallePedidoCliente)
+        {
+          var vehiculo = dbVenta.Vehiculo.Find(detallePedido.CodigoVehiculo);
+
+          if (vehiculo == null)
+          {
+            throw new Exception($"El vehículo con código {detallePedido.CodigoVehiculo} no existe.");
+          }
+
           var detalleFactura = new DetalleFacturaVenta
           {
             CodigoVehiculo = vehiculo.Codigo,
@@ -49,13 +71,26 @@ namespace VentaAutos.Clases
           };
           factura.DetalleFacturaVenta.Add(detalleFactura);
         }
+
+
+        dbVenta.FacturaVenta.Add(factura);
+        dbVenta.SaveChanges();
+
+        return factura;
       }
-
-      dbVenta.FacturaVenta.Add(factura);
-      dbVenta.SaveChanges();
-
-      return factura;
+      catch (Exception ex)
+      {
+        string mensajeDetalle = ex.Message;
+        Exception inner = ex.InnerException;
+        while (inner != null)
+        {
+          mensajeDetalle += " | Inner Exception: " + inner.Message;
+          inner = inner.InnerException;
+        }
+        throw new Exception("Error al generar la factura: " + mensajeDetalle);
+      }
     }
+
 
     public List<object> ObtenerHistorialCompras(string documentoCliente)
     {

@@ -25,8 +25,19 @@ namespace VentaAutos.Clases
 
         foreach (var detalle in detalles)
         {
-          detalle.IdPedido = pedido.Id; 
-          dbVenta.DetallePedidoCliente.Add(detalle);
+          var vehiculo = dbVenta.Vehiculo.FirstOrDefault(v => v.Codigo == detalle.CodigoVehiculo);
+
+          if (vehiculo != null)
+          {
+            detalle.IdPedido = pedido.Id;
+            detalle.PrecioUnitario = vehiculo.ValorUnitario;
+
+            dbVenta.DetallePedidoCliente.Add(detalle);
+          }
+          else
+          {
+            return $"Vehículo con código {detalle.CodigoVehiculo} no encontrado.";
+          }
         }
 
         dbVenta.SaveChanges();

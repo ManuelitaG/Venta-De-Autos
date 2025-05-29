@@ -14,11 +14,11 @@ namespace VentaAutos.Controllers
   {
     [HttpPost]
     [Route("Insertar")]
-    public string Registrar(PedidoCliente pedido, List<DetallePedidoCliente> detalles)
+    public string Registrar([FromBody] pedidoDTO data)
     {
       clsPedido pedidos = new clsPedido();
-      pedidos.pedido = pedido;
-      pedidos.detalles = detalles;
+      pedidos.pedido = data.pedido;
+      pedidos.detalles = data.detalles;
 
       return pedidos.Insertar();
     }
