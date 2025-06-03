@@ -53,10 +53,10 @@ namespace VentaAutos.Clases
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Trace.TraceError("Error en clsLogin.Autenticar: " + ex.ToString());
-
-                    respuesta.Mensaje = "Ocurrió un error inesperado durante el proceso de autenticación.";
-                }
+                //System.Diagnostics.Trace.TraceError("Error en clsLogin.Autenticar: " + ex.ToString());
+                respuesta.Mensaje = ex.ToString();
+                //respuesta.Mensaje = "Ocurrió un error inesperado durante el proceso de autenticación.";
+            }
 
                 return respuesta;
             }

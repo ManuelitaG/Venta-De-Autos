@@ -1,46 +1,46 @@
 ﻿using VentaAutos.Clases;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
 namespace VentaAutos.Controllers
 {
-        [RoutePrefix("api/login")]
-        public class LoginController : ApiController
+    [RoutePrefix("api/login")]
+    public class LoginController : ApiController
+    {
+        [HttpPost]
+        [Route("Ingresar")]
+        [AllowAnonymous]
+        [ResponseType(typeof(LoginResponse))]
+        public IHttpActionResult Ingresar([FromBody] LoginRequest credenciales)
         {
-            [HttpPost]
-            [Route("Ingresar")]
-            [AllowAnonymous]
-            [ResponseType(typeof(LoginResponse))]
-            public IHttpActionResult Ingresar([FromBody] LoginRequest credenciales)
+            // 1. Validación de datos
+            if (credenciales == null || !ModelState.IsValid)
             {
-                if (credenciales == null || !ModelState.IsValid)
+                return Ok(new LoginResponse
                 {
-                    return BadRequest("Los datos proporcionados para el login son inválidos.");
-                }
+                    Autenticado = false,
+                    Mensaje = "Debe ingresar usuario y clave."
+                });
+            }
 
-                try
+            try
+            {
+                clsLogin _login = new clsLogin();
+                LoginResponse resultado = _login.Autenticar(credenciales);
+                // 2. Devuelve SIEMPRE HTTP 200, el frontend lee Autenticado y Mensaje
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                // 3. No envíes el mensaje técnico, solo uno general
+                System.Diagnostics.Trace.TraceError("Error en LoginController.Ingresar: " + ex.ToString());
+                return Ok(new LoginResponse
                 {
-                    clsLogin _login = new clsLogin();
-                    LoginResponse resultado = _login.Autenticar(credenciales);
-                    if (resultado.Autenticado)
-                    {
-                        return Ok(resultado);
-                    }
-                    else
-                    {
-                        return Content(HttpStatusCode.Unauthorized, resultado);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Trace.TraceError("Error en LoginController.Ingresar: " + ex.ToString());
-                    return InternalServerError(new Exception("Ocurrió un error inesperado durante el proceso de login. Por favor, intente más tarde."));
-                }
+                    Autenticado = false,
+                    Mensaje = "Ocurrió un error inesperado. Intente más tarde."
+                });
             }
         }
     }
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using VentaAutos.Clases;
 using VentaAutos.Models;
 
@@ -12,7 +13,9 @@ namespace VentaAutos.Controllers
   [RoutePrefix("api/Vehiculo")]
   public class VehiculoController : ApiController
   {
-    [HttpGet]
+   [EnableCors(origins: "*", headers: "*", methods: "*")]
+
+   [HttpGet]
     [Route("ListarDisponibles")]
     public List<Vehiculo> ListarDisponibles()
     {
