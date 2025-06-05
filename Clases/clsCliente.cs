@@ -11,6 +11,11 @@ namespace VentaAutos.Clases
     private db20311Entities dbVenta = new db20311Entities();
     public Cliente cliente { get; set; }
 
+    public List<Cliente> ConsultarTodos()
+    {
+      return dbVenta.Cliente.ToList();
+    }
+
     public String Registrar()
     {
       try
