@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace VentaAutos.Models
 {
@@ -18,5 +15,6 @@ namespace VentaAutos.Models
         public bool Autenticado { get; set; }
         public string Token { get; set; }
         public string Mensaje { get; set; }
+        public List<string> Perfiles { get; set; } 
     }
 }

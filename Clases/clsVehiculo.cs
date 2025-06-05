@@ -12,14 +12,32 @@ namespace VentaAutos.Clases
     private db20311Entities dbVenta = new db20311Entities();
     public Vehiculo vehiculo { get; set; }
 
-    public List<Vehiculo> ListarDisponibles()
-    {
-      return dbVenta.Vehiculo
-                 .Where(v => v.Estado == "Disponible")
-                 .ToList();
-    }
+        public List<VehiculoDisponibleDTO> ListarDisponibles()
+        {
+            var disponibles = (from v in dbVenta.Vehiculo
+                               join m in dbVenta.Modelo on v.IdModelo equals m.Id
+                               join ma in dbVenta.Marca on m.IdMarca equals ma.Id
+                               where v.Estado == "Disponible"
+                               select new VehiculoDisponibleDTO
+                               {
+                                   Codigo = v.Codigo,
+                                   IdModelo = m.Id,
+                                   ModeloNombre = m.Nombre,
+                                   MarcaNombre = ma.Nombre,
+                                   Año = v.Año,
+                                   Tipo = v.Tipo,
+                                   ValorUnitario = v.ValorUnitario,
+                                   Estado = v.Estado,
+                                   Origen = v.Origen,
+                                   Condicion = v.Condicion
+                               }).ToList();
 
-    public string Registrar()
+            return disponibles;
+        }
+
+
+
+        public string Registrar()
     {
       try
       {

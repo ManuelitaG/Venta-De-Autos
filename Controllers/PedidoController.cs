@@ -9,26 +9,43 @@ using VentaAutos.Models;
 
 namespace VentaAutos.Controllers
 {
-  [RoutePrefix("api/Pedido")]
-  public class PedidoController : ApiController
-  {
-    [HttpPost]
-    [Route("Insertar")]
-    public string Registrar([FromBody] pedidoDTO data)
+    [RoutePrefix("api/Pedido")]
+    public class PedidoController : ApiController
     {
-      clsPedido pedidos = new clsPedido();
-      pedidos.pedido = data.pedido;
-      pedidos.detalles = data.detalles;
+        [HttpPost]
+        [Route("Insertar")]
+        public string Registrar([FromBody] pedidoDTO data)
+        {
+            clsPedido pedidos = new clsPedido();
+            pedidos.pedido = data.pedido;
+            pedidos.detalles = data.detalles;
 
-      return pedidos.Insertar();
-    }
+            return pedidos.Insertar();
+        }
 
-    [HttpGet]
-    [Route("ConsultarPedidosCliente/{documento}")]
-    public List<object> ConsultarPedidosCliente(string documento)
-    {
-      clsPedido pedido = new clsPedido();
-      return pedido.ConsultarXCliente(documento);
+        [HttpGet]
+        [Route("ConsultarPedidosCliente/{documento}")]
+        public List<object> ConsultarPedidosCliente(string documento)
+        {
+            clsPedido pedido = new clsPedido();
+            return pedido.ConsultarXCliente(documento);
+        }
+
+        [HttpGet]
+        [Route("ConsultarTodos")]
+        public List<object> ConsultarTodos()
+        {
+            clsPedido pedido = new clsPedido();
+            return pedido.ConsultarTodos();
+        }
+
+
+        [HttpPut]
+        [Route("Actualizar")]
+        public string Actualizar([FromBody] PedidoCliente pedido)
+        {
+            clsPedido pedidos = new clsPedido();
+            return pedidos.Actualizar(pedido);
+        }
     }
-  }
 }

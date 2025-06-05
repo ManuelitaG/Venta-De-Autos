@@ -1,4 +1,5 @@
 ﻿using VentaAutos.Clases;
+using VentaAutos.Models;
 using System;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -11,34 +12,35 @@ namespace VentaAutos.Controllers
         [HttpPost]
         [Route("Ingresar")]
         [AllowAnonymous]
-        [ResponseType(typeof(LoginResponse))]
-        public IHttpActionResult Ingresar([FromBody] LoginRequest credenciales)
+        [ResponseType(typeof(LoginRespuesta))]
+        public IHttpActionResult Ingresar([FromBody] Login credenciales)
         {
             // 1. Validación de datos
             if (credenciales == null || !ModelState.IsValid)
             {
-                return Ok(new LoginResponse
+                return Ok(new LoginRespuesta
                 {
                     Autenticado = false,
-                    Mensaje = "Debe ingresar usuario y clave."
+                    Mensaje = "Debe ingresar usuario y clave.",
+                    Perfiles = new System.Collections.Generic.List<string>()
                 });
             }
 
             try
             {
                 clsLogin _login = new clsLogin();
-                LoginResponse resultado = _login.Autenticar(credenciales);
-                // 2. Devuelve SIEMPRE HTTP 200, el frontend lee Autenticado y Mensaje
+                LoginRespuesta resultado = _login.Autenticar(credenciales);
+                // Devuelve SIEMPRE HTTP 200, el frontend lee Autenticado y Mensaje
                 return Ok(resultado);
             }
             catch (Exception ex)
             {
-                // 3. No envíes el mensaje técnico, solo uno general
                 System.Diagnostics.Trace.TraceError("Error en LoginController.Ingresar: " + ex.ToString());
-                return Ok(new LoginResponse
+                return Ok(new LoginRespuesta
                 {
                     Autenticado = false,
-                    Mensaje = "Ocurrió un error inesperado. Intente más tarde."
+                    Mensaje = "Ocurrió un error inesperado. Intente más tarde.",
+                    Perfiles = new System.Collections.Generic.List<string>()
                 });
             }
         }

@@ -1,65 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System;
+using VentaAutos.Clases;
 using VentaAutos.Models;
 
-namespace VentaAutos.Clases
+public class clsLogin
 {
+    private db20311Entities db = new db20311Entities();
 
-        public class LoginRequest
+    public LoginRespuesta Autenticar(Login credenciales)
+    {
+        var respuesta = new LoginRespuesta
         {
-            public string Username { get; set; }
-            public string Clave { get; set; }
+            Autenticado = false,
+            Token = null,
+            Mensaje = "",
+            Usuario = credenciales.Usuario,
+            Perfiles = new List<string>()
+        };
+
+        if (string.IsNullOrEmpty(credenciales?.Usuario) || string.IsNullOrEmpty(credenciales.Clave))
+        {
+            respuesta.Mensaje = "El Usuario y la Clave son obligatorios.";
+            return respuesta;
         }
-        public class LoginResponse
+
+        try
         {
-            public bool Autenticado { get; set; }
-            public string Mensaje { get; set; }
-            public string Token { get; set; }
-            public string Username { get; set; }
-        }
-        public class clsLogin
-        {
-            private db20311Entities db = new db20311Entities();
-            public LoginResponse Autenticar(LoginRequest credenciales)
+            var usuario = db.Usuario.FirstOrDefault(u =>
+                u.Username == credenciales.Usuario &&
+                u.Clave == credenciales.Clave);
+
+            if (usuario != null)
             {
-                LoginResponse respuesta = new LoginResponse { Autenticado = false, Token = null };
+                respuesta.Autenticado = true;
+                respuesta.Mensaje = "Autenticación exitosa.";
+                respuesta.Usuario = usuario.Username;
+                respuesta.Token = TokenGenerator.GenerateTokenJwt(usuario.Username);
 
-                if (string.IsNullOrEmpty(credenciales?.Username) || string.IsNullOrEmpty(credenciales.Clave))
-                {
-                    respuesta.Mensaje = "El Usuario y la Clave son obligatorios.";
-                    return respuesta;
-                }
+                // Trae todos los perfiles activos
+                respuesta.Perfiles = usuario.Usuario_Perfil
+                    .Where(up => up.Activo)
+                    .Select(up => up.Perfil.Nombre)
+                    .ToList();
 
-                try
-                {
-                    var admin = db.Usuario.FirstOrDefault(a =>
-                                    a.Username == credenciales.Username &&
-                                    a.Clave == credenciales.Clave);
-
-                    if (admin != null)
-                    {
-                        respuesta.Autenticado = true;
-                        respuesta.Mensaje = "Autenticación exitosa.";
-                        respuesta.Username = admin.Username;
-
-                        respuesta.Token = TokenGenerator.GenerateTokenJwt(admin.Username);
-                    }
-                    else
-                    {
-                        respuesta.Mensaje = "Credenciales inválidas. Verifique el usuario y la clave.";
-                    }
-                }
-                catch (Exception ex)
-                {
-                //System.Diagnostics.Trace.TraceError("Error en clsLogin.Autenticar: " + ex.ToString());
-                respuesta.Mensaje = ex.ToString();
-                //respuesta.Mensaje = "Ocurrió un error inesperado durante el proceso de autenticación.";
+                // Si tienes una lógica de perfil principal:
+                respuesta.Perfil = respuesta.Perfiles.FirstOrDefault(); // Primer perfil (opcional)
+                // Puedes también llenar PaginaInicio aquí si lo deseas
             }
-
-                return respuesta;
+            else
+            {
+                respuesta.Mensaje = "Credenciales inválidas. Verifique el usuario y la clave.";
             }
         }
-    }
+        catch (Exception ex)
+        {
+            respuesta.Mensaje = ex.ToString();
+        }
 
+        return respuesta;
+    }
+}

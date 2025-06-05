@@ -26,7 +26,7 @@ namespace VentaAutos.Clases
             }
             catch (Exception ex)
             {
-                return "No se ha podido ingresar la garantía" + ex.Message;
+                return "No se ha podido ingresar la garantía, el vehículo o la factura no existe: " + ex.Message;
             }
 
 

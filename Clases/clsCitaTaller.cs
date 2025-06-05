@@ -16,18 +16,28 @@ namespace VentaAutos.Clases
       return dbVenta.CitaTaller.ToList();
     }
 
-    public String Insertar()
+    public string Insertar()
     {
-      try
-      {
-        dbVenta.CitaTaller.Add(citaTaller);
-        dbVenta.SaveChanges();
-        return "Se ha ingresado con éxito la cita del taller";
-      }
-      catch (Exception ex)
-      {
-        return "No se ha podido ingresar la cita del taller" + ex.Message;
-      }
+        try
+        {
+            if (string.IsNullOrEmpty(citaTaller.Estado))
+                citaTaller.Estado = "Pendiente";
+
+            if (citaTaller.CodigoVehiculo == 0)
+                citaTaller.CodigoVehiculo = 1; 
+
+            if (citaTaller.FechaCita == default(DateTime))
+                citaTaller.FechaCita = DateTime.Now;
+
+            dbVenta.CitaTaller.Add(citaTaller);
+            dbVenta.SaveChanges();
+            return "Se ha ingresado con éxito la cita del taller";
+        }
+        catch (Exception ex)
+        {
+            return "No se ha podido ingresar la cita del taller: " + ex.Message;
+        }
     }
+
   }
 }

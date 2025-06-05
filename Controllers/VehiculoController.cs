@@ -15,15 +15,34 @@ namespace VentaAutos.Controllers
   {
    [EnableCors(origins: "*", headers: "*", methods: "*")]
 
-   [HttpGet]
-    [Route("ListarDisponibles")]
-    public List<Vehiculo> ListarDisponibles()
-    {
-      clsVehiculo vehiculos = new clsVehiculo();
-      return vehiculos.ListarDisponibles();
-    }
+        [HttpGet]
+        [Route("ListarDisponibles")]
+        public IHttpActionResult ListarDisponibles()
+        {
+            using (var db = new db20311Entities())
+            {
+                var lista = db.Vehiculo
+                    .Select(v => new
+                    {
+                        v.Codigo,
+                        v.Año,
+                        v.Tipo,
+                        v.ValorUnitario,
+                        v.Estado,
+                        v.Origen,
+                        v.Condicion,
+                        v.IdModelo,
+                        ModeloNombre = v.Modelo.Nombre,
+                        MarcaNombre = v.Modelo.Marca.Nombre  
+                    })
+                    .ToList();
 
-    [HttpPost]
+                return Ok(lista);
+            }
+        }
+
+
+        [HttpPost]
     [Route("Registrar")]
     public string Registrar([FromBody] Vehiculo vehiculo)
     {
