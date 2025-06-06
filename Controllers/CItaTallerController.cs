@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using VentaAutos.Clases;
 using VentaAutos.Models;
+using static VentaAutos.Clases.clsCitaTaller;
 
 namespace VentaAutos.Controllers
 {
@@ -14,11 +15,12 @@ namespace VentaAutos.Controllers
     {
         [HttpGet]
         [Route("ConsultarTodos")]
-        public List<CitaTaller> ConsultarTodos()
+        public List<CitaTallerDTO> ConsultarTodos()
         {
             clsCitaTaller clsCitaTaller = new clsCitaTaller();
             return clsCitaTaller.ConsultarTodos();
         }
+
 
         [HttpPost]
         [Route("Insertar")]
@@ -26,7 +28,7 @@ namespace VentaAutos.Controllers
         {
             clsCitaTaller clscitaTaller = new clsCitaTaller();
             clscitaTaller.citaTaller = citaTaller;
-         
+
             return clscitaTaller.Insertar();
         }
         [HttpPost]
@@ -43,13 +45,12 @@ namespace VentaAutos.Controllers
         }
         [HttpGet]
         [Route("ConsultarPendientes")]
-        public List<CitaTaller> ConsultarPendientes()
+        public List<CitaTallerDTO> ConsultarPendientes()
         {
-            using (var db = new db20311Entities())
-            {
-                return db.CitaTaller.Where(c => c.Estado == "Pendiente").ToList();
-            }
+            clsCitaTaller clsCitaTaller = new clsCitaTaller();
+            return clsCitaTaller.ConsultarPendientes();
         }
+
         [HttpPost]
         [Route("Rechazar/{id}")]
         public string Rechazar(int id, [FromBody] string observaciones)

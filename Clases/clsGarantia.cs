@@ -16,6 +16,33 @@ namespace VentaAutos.Clases
             return dbVenta.Garantia.ToList();
         }
 
+        public List<GarantiaDTO> ConsultarGarantias()
+        {
+            using (var db = new db20311Entities())
+            {
+                var lista = (from g in db.Garantia
+                             join v in db.Vehiculo on g.CodigoVehiculo equals v.Codigo
+                             join m in db.Modelo on v.IdModelo equals m.Id
+                             join ma in db.Marca on m.IdMarca equals ma.Id
+                             select new GarantiaDTO
+                             {
+                                 Id = g.Id,
+                                 CodigoVehiculo = g.CodigoVehiculo,
+                                 MarcaNombre = ma.Nombre,
+                                 ModeloNombre = m.Nombre,
+                                 Año = v.Año,
+                                 NumeroFactura = g.NumeroFactura,
+                                 FechaInicio = g.FechaInicio,
+                                 FechaFin = g.FechaFin,
+                                 Cobertura = g.Cobertura,
+                                 Estado = g.Estado
+                             }).ToList();
+
+                return lista;
+            }
+        }
+
+
         public String Insertar()
         {
             try

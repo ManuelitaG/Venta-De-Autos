@@ -14,11 +14,12 @@ namespace VentaAutos.Controllers
     {
         [HttpGet]
         [Route("ConsultarTodos")]
-        public List<Garantia> ConsultarTodos()
+        public List<GarantiaDTO> ConsultarTodas()
         {
-            clsGarantia clsgarantia = new clsGarantia();
-            return clsgarantia.ConsultarTodos();
+            clsGarantia clsGarantia = new clsGarantia();
+            return clsGarantia.ConsultarGarantias();
         }
+
 
         [HttpGet]
         [Route("ConsultarTodosXPlaca")]
